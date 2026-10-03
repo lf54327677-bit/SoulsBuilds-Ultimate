@@ -1,0 +1,582 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<meta name="description" content="SoulsBuilds Ultimate — explore os universos Soulslike, descubra chefes, armas, builds, segredos e lendas.">
+<title>SoulsBuilds — Seu caminho. Sua lenda.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.85em' font-size='80'%3E%E2%9A%94%3C/text%3E%3C/svg%3E">
+<style>
+:root {
+  --bg:#090909;--panel:#11110f;--panel2:#171612;
+  --gold:#c9a45c;--gold2:#f0d79c;--text:#f3efe5;
+  --muted:#a6a093;--line:#393327;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{margin:0;background:var(--bg);color:var(--text);
+font-family:Georgia,"Times New Roman",serif}
+button,input,select{font:inherit}
+button,a{ -webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer}
+img{display:block;width:100%;object-fit:cover}
+::selection{background:var(--gold);color:#090909}
+.topline{height:3px;background:linear-gradient(90deg,#46351a,var(--gold2),#46351a)}
+header{height:76px;position:sticky;top:0;z-index:20;
+background:rgba(9,9,9,.94);backdrop-filter:blur(16px);
+border-bottom:1px solid #332b1d}
+.nav{max-width:1450px;height:100%;margin:auto;padding:0 5%;
+display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;min-width:max-content}
+.brandmark{font-size:35px;color:var(--gold);text-shadow:0 0 22px #c9a45c55}
+.brandname{font-size:19px;letter-spacing:3px;font-weight:bold}
+.brandname small{display:block;font-size:9px;letter-spacing:4px;color:var(--gold);margin-top:4px}
+.navlinks{display:flex;align-items:center;gap:24px}
+.navlinks a{font:11px Arial,sans-serif;letter-spacing:1.4px;color:#d3ccbd;text-transform:uppercase;transition:.2s}
+.navlinks a:hover{color:var(--gold2)}
+.navsearch{background:#171612;border:1px solid #4b402b;color:white;
+padding:10px 13px;width:175px;outline:none}
+.menuBtn{display:none;background:none;border:1px solid var(--line);color:var(--gold);padding:10px}
+.hero{min-height:620px;position:relative;display:flex;align-items:center;
+overflow:hidden;background:#15130f}
+.heroimg{position:absolute;inset:0;width:100%;height:100%;
+object-fit:cover;object-position:center 36%;opacity:.68;
+animation:arrive 1.2s ease both}
+.hero:after{content:"";position:absolute;inset:0;
+background:linear-gradient(90deg,#090909 0%,rgba(9,9,9,.85) 30%,
+rgba(9,9,9,.18) 78%),linear-gradient(0deg,#090909 0%,transparent 42%)}
+.herocontent{position:relative;z-index:2;max-width:1450px;width:100%;
+margin:auto;padding:100px 8% 110px}
+.eyebrow{color:var(--gold2);font:11px Arial,sans-serif;letter-spacing:5px;text-transform:uppercase}
+.eyebrow:before{content:"";display:inline-block;width:34px;height:1px;
+background:var(--gold);vertical-align:middle;margin-right:13px}
+h1{font-size:clamp(40px,6.2vw,86px);line-height:1.03;
+font-weight:normal;max-width:790px;margin:24px 0}
+h1 span{color:var(--gold2)}
+.hero p{font:15px/1.9 Arial,sans-serif;color:#d1ccbf;max-width:510px}
+.actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:32px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+padding:15px 23px;border:1px solid var(--gold);background:var(--gold);
+color:#100e09;font:11px Arial,sans-serif;letter-spacing:1.5px;
+text-transform:uppercase;transition:.25s}
+.btn:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn.secondary{background:#0b0a08aa;color:var(--text);border-color:#81704c}
+.btn.secondary:hover{background:#272117}
+.herofacts{display:flex;gap:30px;flex-wrap:wrap;margin-top:42px;
+font:10px Arial,sans-serif;letter-spacing:2px;color:#c8bfae}
+.herofacts span:first-letter{color:var(--gold)}
+section{max-width:1450px;margin:auto;padding:85px 5%}
+.sectionhead{display:flex;align-items:end;justify-content:space-between;
+gap:24px;margin-bottom:30px}
+.kicker{font:10px Arial,sans-serif;letter-spacing:4px;color:var(--gold);text-transform:uppercase}
+h2{font-size:clamp(29px,4vw,44px);font-weight:normal;margin:12px 0 0}
+.sectiondesc{font:13px/1.7 Arial,sans-serif;color:var(--muted);max-width:520px;margin-top:12px}
+.textlink{font:11px Arial,sans-serif;letter-spacing:1.5px;text-transform:uppercase;
+color:var(--gold2);white-space:nowrap}
+.textlink:hover{color:white}
+.gamesgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.gamecard{position:relative;min-height:330px;overflow:hidden;background:#171510;
+border:1px solid #29251d;cursor:pointer;transition:transform .3s,border-color .3s}
+.gamecard:hover{transform:translateY(-6px);border-color:var(--gold)}
+.gamecard img{position:absolute;inset:0;height:100%;transition:transform .7s,filter .5s;
+filter:brightness(.7)}
+.gamecard:hover img{transform:scale(1.06);filter:brightness(.92)}
+.gamecard:after{content:"";position:absolute;inset:0;
+background:linear-gradient(0deg,#090909 0%,#090909cc 22%,transparent 78%)}
+.gameinfo{position:absolute;z-index:1;bottom:0;left:0;right:0;padding:25px}
+.gameinfo .number{font:10px Arial,sans-serif;letter-spacing:3px;color:var(--gold)}
+.gameinfo h3{font-size:26px;font-weight:normal;margin:10px 0}
+.gameinfo p{font:12px/1.7 Arial,sans-serif;color:#c4bdaf;margin:0 0 14px}
+.gameinfo .more{font:10px Arial,sans-serif;letter-spacing:2px;color:var(--gold2)}
+.ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+background:#0d0c0a;overflow:hidden;padding:17px 0;color:var(--gold2);
+font-size:13px;letter-spacing:3px;text-align:center}
+.ticker span{padding:0 30px;color:#51442b}
+.explore{background:#0d0c0a;max-width:none}
+.exploreinner{max-width:1300px;margin:auto}
+.tools{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0}
+.searchbox{flex:1;min-width:220px;background:#151410;border:1px solid #403727;
+padding:14px;color:var(--text);outline:none}
+.searchbox:focus{border-color:var(--gold)}
+.filter{background:#151410;border:1px solid #403727;color:#d6cbb7;
+padding:13px;min-width:150px;outline:none}
+.filter option{background:#151410}
+.categorygrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.catcard{position:relative;min-height:210px;overflow:hidden;background:#171510;
+border:1px solid #2e291e;cursor:pointer;text-align:left;color:var(--text);
+padding:0;transition:.3s}
+.catcard:hover{border-color:var(--gold);transform:translateY(-4px)}
+.catcard img{position:absolute;inset:0;height:100%;opacity:.55;transition:.5s}
+.catcard:hover img{opacity:.8;transform:scale(1.07)}
+.catcard:after{content:"";position:absolute;inset:0;
+background:linear-gradient(0deg,#090909 0%,#090909a8 30%,transparent)}
+.catcontent{position:absolute;z-index:1;bottom:0;left:0;padding:19px}
+.caticon{font-size:23px;color:var(--gold2)}
+.catcontent h3{font-size:20px;font-weight:normal;margin:9px 0}
+.catcontent p{font:11px Arial,sans-serif;color:#c6bdad;margin:0}
+.empty{display:none;color:var(--muted);padding:35px 0;font:14px Arial,sans-serif}
+.feature{display:grid;grid-template-columns:1.1fr .9fr;min-height:370px;
+background:#14120e;border:1px solid #403727;overflow:hidden}
+.featureart{position:relative;min-height:320px}
+.featureart img{position:absolute;inset:0;height:100%}
+.featurebody{padding:clamp(26px,5vw,65px);display:flex;flex-direction:column;justify-content:center}
+.featurebody h3{font-size:clamp(28px,3.5vw,43px);font-weight:normal;line-height:1.2;margin:17px 0}
+.featurebody p{font:13px/1.9 Arial,sans-serif;color:var(--muted)}
+.quote{background:linear-gradient(110deg,#15120d,#0a0908);border-top:1px solid #392e1d;
+border-bottom:1px solid #392e1d;text-align:center;padding:80px 6%}
+.quote blockquote{max-width:850px;margin:25px auto;font-size:clamp(24px,4vw,42px);
+line-height:1.45;font-style:italic}
+.quote small{font:10px Arial,sans-serif;color:var(--gold);letter-spacing:3px;text-transform:uppercase}
+.newsgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.newscard{background:var(--panel);border:1px solid #2d281f}
+.newscard img{height:175px}
+.newsbody{padding:22px}
+.newsbody small{font:10px Arial,sans-serif;letter-spacing:2px;color:var(--gold)}
+.newsbody h3{font-size:21px;font-weight:normal;line-height:1.35}
+.newsbody p{font:12px/1.8 Arial,sans-serif;color:var(--muted)}
+footer{border-top:1px solid var(--line);background:#070706;padding:50px 5% 25px}
+.footerinner{max-width:1300px;margin:auto;display:flex;justify-content:space-between;
+gap:35px;flex-wrap:wrap}
+.footerbrand{max-width:360px}
+.footerbrand p{font:12px/1.8 Arial,sans-serif;color:var(--muted)}
+.footerlinks{display:flex;gap:55px;flex-wrap:wrap}
+.footerlinks h4{font:10px Arial,sans-serif;letter-spacing:2px;color:var(--gold)}
+.footerlinks a{display:block;font:12px Arial,sans-serif;color:#aaa397;margin:13px 0}
+.footerlinks a:hover{color:var(--gold2)}
+.copyright{max-width:1300px;margin:35px auto 0;padding-top:20px;
+border-top:1px solid #28251e;font:10px/1.8 Arial,sans-serif;color:#777164}
+.modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;
+padding:20px;background:#000d;backdrop-filter:blur(8px)}
+.modal.open{display:flex}
+.modalbox{width:min(760px,100%);max-height:90vh;overflow:auto;background:#11100d;
+border:1px solid var(--gold);position:relative}
+.modalimg{height:250px}
+.modalbody{padding:28px}
+.modalbody h2{margin:10px 0 16px}
+.modalbody p,.modalbody li{font:13px/1.8 Arial,sans-serif;color:#c6bdaf}
+.modalbody ul{padding-left:20px}
+.close{position:absolute;right:12px;top:12px;z-index:3;background:#090909dd;
+border:1px solid #8c7548;color:var(--gold2);width:40px;height:40px;font-size:23px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);
+background:#201b11;border:1px solid var(--gold);padding:14px 20px;z-index:80;
+opacity:0;pointer-events:none;font:12px Arial,sans-serif;transition:.25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@keyframes arrive{from{transform:scale(1.06);opacity:.2}to{transform:scale(1);opacity:.68}}
+@media(max-width:950px){
+ .navlinks{gap:12px}.navlinks a{font-size:10px}.navsearch{width:130px}
+ .gamesgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .categorygrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .feature{grid-template-columns:1fr}.featureart{min-height:300px}
+}
+@media(max-width:680px){
+ header{height:65px}.nav{padding:0 5%}.brandname{font-size:15px}
+ .brandmark{font-size:29px}.menuBtn{display:block}
+ .navlinks{display:none;position:absolute;top:64px;left:0;right:0;
+ background:#0d0c0a;border-bottom:1px solid var(--line);padding:22px 5%;
+ flex-direction:column;align-items:stretch;gap:20px}
+ .navlinks.open{display:flex}.navsearch{width:100%}
+ .hero{min-height:580px}.heroimg{object-position:58% center}
+ .herocontent{padding:80px 6%}.hero:after{background:linear-gradient(90deg,#090909dc,#09090966),linear-gradient(0deg,#090909,transparent 70%)}
+ .herofacts{gap:13px}.sectionhead{align-items:start;flex-direction:column}
+ section{padding:60px 5%}.gamesgrid{grid-template-columns:1fr}
+ .gamecard{min-height:310px}.categorygrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .catcard{min-height:180px}.catcontent{padding:13px}.catcontent h3{font-size:17px}
+ .newsgrid{grid-template-columns:1fr}.featureart{min-height:240px}
+ .footerlinks{gap:25px}.quote{padding:65px 6%}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<div class="topline"></div>
+<header>
+  <nav class="nav">
+    <a class="brand" href="#inicio" aria-label="SoulsBuilds início">
+      <span class="brandmark">⚔</span>
+      <span class="brandname">SOULSBUILDS<small>ULTIMATE ARCHIVE</small></span>
+    </a>
+    <button class="menuBtn" id="menuBtn" aria-label="Abrir menu">☰ MENU</button>
+    <div class="navlinks" id="navlinks">
+      <a href="#jogos">Jogos</a>
+      <a href="#explorar">Explorar</a>
+      <a href="#destaque">Destaques</a>
+      <a href="#guias">Guias</a>
+      <input class="navsearch" id="topSearch" placeholder="⌕ Buscar..." aria-label="Buscar conteúdo">
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="inicio" style="max-width:none;padding:0">
+  <img class="heroimg" id="heroimg"
+    src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1245620/library_hero.jpg"
+    alt="Arte promocional de Elden Ring">
+  <div class="herocontent">
+    <div class="eyebrow">O arquivo dos mundos esquecidos</div>
+    <h1>ONDE OS DEUSES CAEM<br>E AS <span>LENDAS RENASCEM</span></h1>
+    <p>Explore os mundos Soulslike, descubra builds lendárias e enfrente os maiores desafios já concebidos.</p>
+    <div class="actions">
+      <a class="btn" href="#jogos">✦ Explorar os mundos</a>
+      <a class="btn secondary" href="#explorar">Descobrir o arquivo ↗</a>
+    </div>
+    <div class="herofacts">
+      <span>✦ JOGOS</span><span>✦ BUILDS</span>
+      <span>✦ CHEFES</span><span>✦ SEGREDOS</span>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">SEU CAMINHO <span>✦</span> SUA LENDA <span>✦</span> SUA ETERNIDADE <span>✦</span> EXPLORE ALÉM DA MORTE</div>
+
+<section id="jogos">
+  <div class="sectionhead">
+    <div>
+      <div class="kicker">Escolha seu destino</div>
+      <h2>Universos lendários</h2>
+      <p class="sectiondesc">Cada mundo guarda seus próprios horrores, mistérios e histórias. Escolha um caminho para começar.</p>
+    </div>
+    <a class="textlink" href="#explorar">Ver todo o arquivo ↗</a>
+  </div>
+  <div class="gamesgrid" id="gamesgrid"></div>
+</section>
+
+<section class="explore" id="explorar">
+  <div class="exploreinner">
+    <div class="sectionhead">
+      <div>
+        <div class="kicker">O conhecimento é poder</div>
+        <h2>Explore o arquivo</h2>
+        <p class="sectiondesc">Procure uma categoria ou filtre por jogo. Cada cartão abre uma área com informações iniciais e caminhos para explorar.</p>
+      </div>
+    </div>
+    <div class="tools">
+      <input class="searchbox" id="search" placeholder="⌕  Buscar chefes, armas, builds, mapas..." aria-label="Buscar no arquivo">
+      <select class="filter" id="gameFilter" aria-label="Filtrar por jogo">
+        <option value="">Todos os jogos</option>
+        <option>Elden Ring</option><option>Dark Souls</option>
+        <option>Bloodborne</option><option>Sekiro</option>
+        <option>Demon's Souls</option><option>Outros Soulslike</option>
+      </select>
+      <select class="filter" id="sortFilter" aria-label="Ordenação">
+        <option value="default">Ordem original</option>
+        <option value="az">Nome: A–Z</option>
+      </select>
+    </div>
+    <div class="categorygrid" id="categorygrid"></div>
+    <div class="empty" id="empty">Nenhum resultado encontrado. Tente outro nome ou filtro.</div>
+  </div>
+</section>
+
+<section id="destaque">
+  <div class="sectionhead">
+    <div>
+      <div class="kicker">Do arquivo das Terras Intermédias</div>
+      <h2>Crônicas em destaque</h2>
+    </div>
+    <span class="textlink">Rotação a cada 7 horas</span>
+  </div>
+  <div class="feature">
+    <div class="featureart">
+      <img id="featureimg" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1245620/library_hero.jpg" alt="Arte de Elden Ring">
+    </div>
+    <div class="featurebody">
+      <div class="kicker" id="featuretag">Crônica • Elden Ring</div>
+      <h3 id="featuretitle">O chamado das Terras Intermédias</h3>
+      <p id="featuretext">Um mundo vasto, repleto de ruínas, mistérios e caminhos que se cruzam. Cada jornada pode revelar uma nova história.</p>
+      <a class="btn" href="#guias" style="align-self:flex-start;margin-top:15px">Explorar guias ↗</a>
+    </div>
+  </div>
+</section>
+
+<div class="quote">
+  <div class="kicker">O caminho do Maculado</div>
+  <blockquote>“SEU CAMINHO. SUA LENDA.<br>SUA ETERNIDADE.”</blockquote>
+  <small>SoulsBuilds Ultimate • Arquivo dos mundos Soulslike</small>
+</div>
+
+<section id="guias">
+  <div class="sectionhead">
+    <div>
+      <div class="kicker">Prepare sua jornada</div>
+      <h2>Guias para sua próxima batalha</h2>
+      <p class="sectiondesc">Comece pelas áreas mais procuradas. O arquivo será ampliado com conteúdo detalhado conforme o projeto evoluir.</p>
+    </div>
+  </div>
+  <div class="newsgrid">
+    <article class="newscard">
+      <img loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg" alt="Elden Ring">
+      <div class="newsbody"><small>BUILDS & ATRIBUTOS</small>
+        <h3>Monte sua própria build</h3>
+        <p>Explore força, destreza, inteligência, fé e outras possibilidades para planejar seu estilo de combate.</p>
+        <button class="textlink openCategory" data-category="Builds" style="background:none;border:0;padding:0">Explorar builds ↗</button>
+      </div>
+    </article>
+    <article class="newscard">
+      <img loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/374320/header.jpg" alt="Dark Souls III">
+      <div class="newsbody"><small>CHEFES & ESTRATÉGIAS</small>
+        <h3>Conheça seus adversários</h3>
+        <p>Organize seus estudos sobre padrões de ataque, equipamentos e preparação para cada confronto.</p>
+        <button class="textlink openCategory" data-category="Chefes" style="background:none;border:0;padding:0">Ver chefes ↗</button>
+      </div>
+    </article>
+    <article class="newscard">
+      <img loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/814380/header.jpg" alt="Sekiro">
+      <div class="newsbody"><small>SEGREDOS & LORE</small>
+        <h3>Histórias escondidas</h3>
+        <p>Descubra como personagens, locais, itens e acontecimentos se conectam nos mundos dos jogos.</p>
+        <button class="textlink openCategory" data-category="Lore e histórias" style="background:none;border:0;padding:0">Investigar lore ↗</button>
+      </div>
+    </article>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footerinner">
+    <div class="footerbrand">
+      <a class="brand" href="#inicio"><span class="brandmark">⚔</span>
+        <span class="brandname">SOULSBUILDS<small>ULTIMATE ARCHIVE</small></span></a>
+      <p>Um arquivo de fãs para explorar jogos Soulslike, planejar builds e descobrir as histórias por trás de cada mundo.</p>
+    </div>
+    <div class="footerlinks">
+      <div><h4>EXPLORAR</h4><a href="#jogos">Universos</a><a href="#explorar">Categorias</a><a href="#destaque">Crônicas</a></div>
+      <div><h4>JORNADA</h4><a href="#guias">Guias</a><a href="#inicio">Voltar ao topo ↑</a></div>
+    </div>
+  </div>
+  <div class="copyright">
+    © <span id="year"></span> SoulsBuilds Ultimate. Projeto de fãs, independente e não oficial.
+    Todas as marcas e propriedades dos jogos pertencem aos respectivos titulares.
+    As artes externas são carregadas de seus respectivos servidores e podem mudar ou deixar de estar disponíveis.
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modalbox">
+    <button class="close" id="closeModal" aria-label="Fechar">×</button>
+    <img class="modalimg" id="modalimg" alt="">
+    <div class="modalbody">
+      <div class="kicker" id="modaltag">Arquivo Soulslike</div>
+      <h2 id="modalTitle">Explorar</h2>
+      <p id="modaltext"></p>
+      <h3 style="font-weight:normal;color:var(--gold2)">O que você encontrará</h3>
+      <ul id="modalitems"></ul>
+      <p id="modalnote">Esta seção é uma estrutura inicial. O conteúdo detalhado será adicionado ao arquivo nas próximas etapas.</p>
+      <button class="btn" id="modalSearch">Buscar nesta categoria ↗</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const gameArt = {
+  "Elden Ring":"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1245620/library_hero.jpg",
+  "Dark Souls":"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/374320/library_hero.jpg",
+  "Bloodborne":"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/211420/library_hero.jpg",
+  "Sekiro":"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/814380/library_hero.jpg",
+  "Demon's Souls":"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/570940/library_hero.jpg",
+  "Outros Soulslike":"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1627720/library_hero.jpg"
+};
+
+const games = [
+ {name:"Elden Ring",number:"01 / THE LANDS BETWEEN",desc:"Torne-se o Maculado e descubra os segredos do Anel Prístino.",art:gameArt["Elden Ring"],tag:"Mundo aberto • Fantasia sombria"},
+ {name:"Dark Souls III",number:"02 / THE AGE OF FIRE",desc:"Atravesse um reino em ruínas e enfrente os Senhores das Cinzas.",art:gameArt["Dark Souls"],tag:"Dark Souls"},
+ {name:"Bloodborne",number:"03 / THE HUNT",desc:"Desvende os horrores de Yharnam em uma caçada sem descanso.",art:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/211420/library_hero.jpg",tag:"Gótico • Horror cósmico"},
+ {name:"Sekiro",number:"04 / SHADOWS DIE TWICE",desc:"Domine a espada, a postura e a arte do combate shinobi.",art:gameArt["Sekiro"],tag:"Ação • Japão feudal"},
+ {name:"Dark Souls Remastered",number:"05 / THE FIRST FLAME",desc:"Retorne a Lordran e enfrente os ciclos da chama.",art:gameArt["Demon's Souls"],tag:"Dark Souls"},
+ {name:"Lies of P",number:"06 / THE PUPPET'S TALE",desc:"Explore uma cidade sombria inspirada na história de Pinóquio.",art:gameArt["Outros Soulslike"],tag:"Outros Soulslike"}
+];
+
+const categories = [
+ {name:"Chefes",icon:"♜",desc:"Adversários e grandes confrontos",game:"Elden Ring",items:["Chefes principais","Chefes opcionais","Estratégias e padrões","Recompensas e fraquezas"]},
+ {name:"Personagens",icon:"♙",desc:"Heróis, NPCs e figuras lendárias",game:"Elden Ring",items:["Personagens principais","NPCs e mercadores","Histórias e relações","Missões de personagens"]},
+ {name:"Armas",icon:"⚔",desc:"Espadas, lanças, katanas e mais",game:"Elden Ring",items:["Espadas e grandes espadas","Katanas e lanças","Arcos e armas à distância","Requisitos e atributos"]},
+ {name:"Armaduras",icon:"♢",desc:"Conjuntos, peças e equipamentos",game:"Elden Ring",items:["Conjuntos de armadura","Capacetes e elmos","Resistências e defesa","Aparência e combinações"]},
+ {name:"Builds",icon:"◈",desc:"Planeje seu estilo de combate",game:"Elden Ring",items:["Força e destreza","Inteligência e fé","Sangramento e efeitos","Atributos e progressão"]},
+ {name:"Magias",icon:"✧",desc:"Feitiçarias, encantamentos e artes",game:"Elden Ring",items:["Feitiçarias","Encantamentos","Catalisadores","Requisitos e efeitos"]},
+ {name:"Mapas e locais",icon:"⌖",desc:"Regiões, atalhos e lugares secretos",game:"Elden Ring",items:["Regiões e mapas","Áreas escondidas","Atalhos e caminhos","Locais importantes"]},
+ {name:"Itens",icon:"♧",desc:"Consumíveis, relíquias e materiais",game:"Elden Ring",items:["Itens consumíveis","Materiais de melhoria","Relíquias e talismãs","Objetos de missão"]},
+ {name:"Missões",icon:"✦",desc:"Caminhos, objetivos e recompensas",game:"Elden Ring",items:["Missões de NPCs","Etapas e objetivos","Decisões importantes","Recompensas"]},
+ {name:"Lore e histórias",icon:"📜",desc:"Mitologia, personagens e teorias",game:"Elden Ring",items:["História do mundo","Famílias e facções","Descrições de itens","Teorias identificadas como teorias"]},
+ {name:"Finais",icon:"☼",desc:"Desfechos e caminhos da jornada",game:"Elden Ring",items:["Finais disponíveis","Requisitos","Consequências na história","Rotas relacionadas"]},
+ {name:"Segredos",icon:"⌘",desc:"Descobertas e detalhes escondidos",game:"Elden Ring",items:["Áreas secretas","Itens escondidos","Encontros opcionais","Detalhes ambientais"]},
+ {name:"NPCs e mercadores",icon:"♧",desc:"Aliados, comerciantes e encontros",game:"Dark Souls",items:["Mercadores","Aliados e invocações","Personagens de missão","Encontros opcionais"]},
+ {name:"Escudos e defesa",icon:"⛨",desc:"Bloqueios, parry e proteção",game:"Dark Souls",items:["Escudos","Estabilidade e defesa","Aparar ataques","Equipamento defensivo"]},
+ {name:"Covenants e facções",icon:"⚑",desc:"Ordens, grupos e juramentos",game:"Dark Souls",items:["Facções","Requisitos","Recompensas","Histórias dos grupos"]},
+ {name:"Combate e técnicas",icon:"⚡",desc:"Movimentação, postura e estratégias",game:"Sekiro",items:["Esquiva e defesa","Postura e parry","Técnicas de combate","Estratégias para iniciantes"]}
+];
+
+const gameCards = document.getElementById("gamesgrid");
+const categoryGrid = document.getElementById("categorygrid");
+const search = document.getElementById("search");
+const topSearch = document.getElementById("topSearch");
+const gameFilter = document.getElementById("gameFilter");
+const sortFilter = document.getElementById("sortFilter");
+const empty = document.getElementById("empty");
+const modal = document.getElementById("modal");
+const toast = document.getElementById("toast");
+let activeCategory = "";
+let toastTimer;
+
+function safeImage(img, fallbackName) {
+  img.addEventListener("error", function(){
+    if(this.dataset.fallbackDone) return;
+    this.dataset.fallbackDone = "yes";
+    this.style.display = "none";
+    const parent = this.parentElement;
+    if(parent) parent.style.background =
+      "radial-gradient(ellipse at 65% 25%,#55452b 0%,#211b13 38%,#080808 100%)";
+  });
+}
+
+function renderGames(){
+  gameCards.innerHTML = games.map((g,i)=>`
+    <article class="gamecard" tabindex="0" role="button"
+      data-game="${g.name}" aria-label="Explorar ${g.name}">
+      <img loading="${i<3?"eager":"lazy"}" src="${g.art}" alt="Arte de ${g.name}">
+      <div class="gameinfo">
+        <div class="number">${g.number}</div>
+        <h3>${g.name}</h3>
+        <p>${g.desc}</p>
+        <div class="more">ENTRAR NO UNIVERSO ↗</div>
+      </div>
+    </article>`).join("");
+  gameCards.querySelectorAll("img").forEach(img=>safeImage(img));
+}
+
+function renderCategories(){
+  let list = categories.filter(c=>{
+    const q=search.value.trim().toLocaleLowerCase("pt-BR");
+    const matchesQ = !q || [c.name,c.desc,c.game,...c.items].join(" ").toLocaleLowerCase("pt-BR").includes(q);
+    const gf=gameFilter.value;
+    const matchesGame = !gf || c.game===gf ||
+      (gf==="Dark Souls" && c.game==="Dark Souls") ||
+      (gf==="Outros Soulslike" && ["Lies of P","Outros Soulslike"].includes(c.game)) ||
+      (gf==="Demon's Souls" && c.game==="Demon's Souls") ||
+      (gf==="Bloodborne" && c.game==="Bloodborne") ||
+      (gf==="Sekiro" && c.game==="Sekiro");
+    return matchesQ && matchesGame;
+  });
+  if(sortFilter.value==="az") list.sort((a,b)=>a.name.localeCompare(b.name,"pt-BR"));
+  categoryGrid.innerHTML = list.map(c=>{
+    const art=gameArt[c.game]||gameArt["Elden Ring"];
+    return `<button class="catcard" data-category="${c.name}" data-game="${c.game}">
+      <img loading="lazy" src="${art}" alt="">
+      <div class="catcontent"><div class="caticon">${c.icon}</div>
+      <h3>${c.name}</h3><p>${c.desc}</p></div></button>`;
+  }).join("");
+  categoryGrid.querySelectorAll("img").forEach(img=>safeImage(img));
+  empty.style.display=list.length?"none":"block";
+}
+
+function showToast(message){
+  toast.textContent=message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>toast.classList.remove("show"),2800);
+}
+
+function openDetails(name, game){
+  const category=categories.find(c=>c.name===name);
+  const g=games.find(x=>x.name===name);
+  const title=category?category.name:(g?g.name:name);
+  const selectedGame=category?category.game:(g?g.name:(game||"Elden Ring"));
+  const art=(category?gameArt[category.game]:(g?g.art:gameArt[selectedGame]))||gameArt["Elden Ring"];
+  document.getElementById("modalimg").src=art;
+  document.getElementById("modalimg").alt="Arte de "+title;
+  document.getElementById("modaltag").textContent=category?category.game+" • ARQUIVO":"UNIVERSO SOULSLIKE";
+  document.getElementById("modalTitle").textContent=title;
+  document.getElementById("modaltext").textContent=category
+    ?category.desc+". Explore os tópicos iniciais desta categoria."
+    :(g?g.desc:"Explore o arquivo SoulsBuilds.");
+  const items=category?category.items:
+    (g?["Personagens e NPCs","Chefes e encontros","Armas, equipamentos e builds","Mapas, missões e histórias"]:
+    ["Introdução","Conteúdos relacionados","Guias e referências"]);
+  document.getElementById("modalitems").innerHTML=items.map(x=>`<li>${x}</li>`).join("");
+  document.getElementById("modalnote").textContent=
+    "Área inicial do SoulsBuilds Ultimate. As listas são pontos de partida para o catálogo detalhado; nem todos os tópicos possuem artigos completos ainda.";
+  activeCategory=title;
+  modal.classList.add("open");
+  document.body.style.overflow="hidden";
+  document.getElementById("closeModal").focus();
+}
+function closeDetails(){
+  modal.classList.remove("open");
+  document.body.style.overflow="";
+}
+
+gameCards.addEventListener("click",e=>{
+  const card=e.target.closest("[data-game]");
+  if(card) openDetails(card.dataset.game);
+});
+gameCards.addEventListener("keydown",e=>{
+  if((e.key==="Enter"||e.key===" ")&&e.target.matches("[data-game]")){
+    e.preventDefault();openDetails(e.target.dataset.game);
+  }
+});
+categoryGrid.addEventListener("click",e=>{
+  const card=e.target.closest("[data-category]");
+  if(card) openDetails(card.dataset.category,card.dataset.game);
+});
+document.querySelectorAll(".openCategory").forEach(b=>
+  b.addEventListener("click",()=>openDetails(b.dataset.category))
+);
+search.addEventListener("input",renderCategories);
+gameFilter.addEventListener("change",renderCategories);
+sortFilter.addEventListener("change",renderCategories);
+topSearch.addEventListener("keydown",e=>{
+  if(e.key==="Enter"){
+    search.value=topSearch.value;
+    renderCategories();
+    document.getElementById("explorar").scrollIntoView({behavior:"smooth"});
+  }
+});
+document.getElementById("modalSearch").addEventListener("click",()=>{
+  const name=activeCategory;
+  closeDetails();
+  search.value=name;
+  gameFilter.value="";
+  renderCategories();
+  document.getElementById("explorar").scrollIntoView({behavior:"smooth"});
+});
+document.getElementById("closeModal").addEventListener("click",closeDetails);
+modal.addEventListener("click",e=>{if(e.target===modal)closeDetails()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDetails()});
+document.getElementById("menuBtn").addEventListener("click",()=>{
+  document.getElementById("navlinks").classList.toggle("open");
+});
+document.querySelectorAll("#navlinks a").forEach(a=>a.addEventListener("click",()=>{
+  document.getElementById("navlinks").classList.remove("open");
+}));
+
+const highlights=[
+ {tag:"Crônica • Elden Ring",title:"O chamado das Terras Intermédias",
+ text:"Um mundo vasto, repleto de ruínas, mistérios e caminhos que se cruzam. Cada jornada pode revelar uma nova história.",art:gameArt["Elden Ring"]},
+ {tag:"Crônica • Dark Souls",title:"A chama nunca conta toda a história",
+ text:"Reinos esquecidos, ciclos e personagens cujas histórias se revelam por meio de encontros e descrições de itens.",art:gameArt["Dark Souls"]},
+ {tag:"Crônica • Sekiro",title:"A lâmina exige paciência",
+ text:"Postura, observação e precisão são partes fundamentais da experiência de combate do shinobi.",art:gameArt["Sekiro"]},
+ {tag:"Crônica • Outros Soulslike",title:"Novos mundos aguardam",
+ text:"O gênero Soulslike reúne mundos diferentes, desafios exigentes e muitas maneiras de construir sua jornada.",art:gameArt["Outros Soulslike"]}
+];
+function rotateHighlight(){
+  const index=Math.floor(Date.now()/(7*60*60*1000))%highlights.length;
+  const h=highlights[index];
+  document.getElementById("featuretag").textContent=h.tag;
+  document.getElementById("featuretitle").textContent=h.title;
+  document.getElementById("featuretext").textContent=h.text;
+  document.getElementById("featureimg").src=h.art;
+  document.getElementById("featureimg").alt=h.tag;
+  document.getElementById("heroimg").src=gameArt["Elden Ring"];
+}
+renderGames();
+renderCategories();
+rotateHighlight();
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
